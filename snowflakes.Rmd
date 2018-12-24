@@ -1,0 +1,265 @@
+---
+title: "Snowfall"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r}
+library(tidyverse)
+library(rnoaa)
+library(lubridate)
+library(ggmap)
+library(sf)
+```
+
+```{r}
+ct_stations <- ghcnd_stations() %>% filter(state == "CT")
+
+```
+
+
+```{r}
+
+ct_stations %>% filter(str_detect(name, "BRIDGEPORT"))
+bpt <- "GHCND:USW00094702"
+
+ncdc_datasets(stationid = bpt)
+
+bpt_snow_trend <- map(2015:2017, function(year) {
+  ncdc(datasetid = "GHCND", stationid = bpt, datatypeid = "SNOW", startdate = str_glue("{year}-01-01"), enddate = str_glue("{year}-12-31"), limit = 366)
+})
+```
+
+```{r}
+bpt_snow_trend %>%
+  map_dfr(~.[["data"]]) %>%
+  select(date, precip = value) %>%
+  mutate(date2 = str_extract(date, "^[\\d-]+") %>% ymd()) %>%
+  mutate(week = week(date2), year = year(date2)) %>%
+  group_by(year, week) %>%
+  summarise(total_precip = sum(precip)) %>%
+  ggplot(aes(x = week, y = total_precip, group = year)) +
+    geom_col(width = 1, alpha = 0.2, color = NA, fill = "#2BA3FF", position = "identity") +
+    theme_void()
+```
+
+```{r}
+bpt_wind_direc <- ncdc(datasetid = "GHCND", stationid = bpt, datatypeid = "WDF5", startdate = "2017-01-01", enddate = "2017-12-31", limit = 366)
+bpt_wind_speed <- ncdc(datasetid = "GHCND", stationid = bpt, datatypeid = "WSF5", startdate = "2017-01-01", enddate = "2017-12-31", limit = 366)
+```
+
+```{r}
+bpt_wind <- inner_join(
+  bpt_wind_direc$data %>% mutate(date2 = str_extract(date, "^[\\d-]+") %>% ymd()) %>% select(date2, direction = value),
+  bpt_wind_speed$data %>% mutate(date2 = str_extract(date, "^[\\d-]+") %>% ymd()) %>% select(date2, speed = value),
+  by = "date2"
+)
+```
+
+```{r}
+bpt_wind %>%
+  group_by(week(date2)) %>%
+  summarise_at(vars(direction, speed), mean) %>%
+  mutate_at(vars(direction, speed), round)
+```
+
+```{r eval=FALSE, include=FALSE}
+bpt_wind %>%
+  mutate(direction = rnoaa:::deg2rad(direction)) %>%
+  mutate(speed_norm = speed / max(speed)) %>%
+  filter(date2 < ymd("2017-01-30")) %>%
+  ggplot(aes(x = date2, y = 1)) +
+    geom_spoke(aes(angle = direction, radius = speed_norm))
+```
+
+
+```{r eval=FALSE, include=FALSE}
+bpt_wind %>%
+  mutate(direction = rnoaa:::deg2rad(direction)) %>%
+  mutate(month = month(date2), day = day(date2)) %>%
+  mutate(speed_norm = speed / max(speed)) %>%
+  ggplot(aes(x = day, y = month)) +
+    geom_spoke(aes(angle = direction, radius = speed_norm * sqrt(2)), color = "slateblue", alpha = 0.5) +
+    theme_void()
+    # theme_minimal()
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+stations <- c("BRIDGEPORT SIKORSKY MEM AP", "DANBURY", "GROTON", "HARTFORD BRADLEY INTL AP", "MT CARMEL", "PORTLAND", "STAMFORD 5 N", "STORRS", "WINSTED 2.6 NNW", "EAST KILLINGLY 1.3 SW", "BURLINGTON", "WESTBROOK CENTER 1.1 N")
+
+ct_stations %>%
+  filter(element == "SNOW", last_year > 2016) %>% 
+  # filter(between(longitude, -73, -72.3), between(latitude, 41, 41.5))
+  filter(name %in% stations) %>%
+  ggplot(aes(x = longitude, y = latitude)) +
+    geom_point()
+```
+
+```{r}
+ct_ids <- ct_stations %>% 
+  filter(element == "SNOW", name %in% stations) %>%
+  pull(id) %>%
+  map_chr(~str_glue("GHCND:{.}"))
+
+id_lookup <- ct_stations %>% 
+  mutate(id = paste0("GHCND:", id)) %>%
+  filter(id %in% ct_ids, element == "SNOW")
+
+
+
+snow_12_17 <- map(2012:2017, function(yr) {
+  map(ct_ids, function(id) {
+    ncdc(datasetid = "GHCND", stationid = id, datatypeid = "SNOW", startdate = str_glue("{yr}-01-01"), enddate = str_glue("{yr}-12-31"), limit = 1000)
+  })
+})
+```
+
+```{r}
+snow_df <- snow_12_17 %>%
+  map_dfr(function(by_yr) {
+    map_dfr(by_yr, ~.[["data"]])
+  })
+
+snow_sum <- snow_df %>%
+  filter(value < 400) %>%
+  mutate(date = str_extract(date, "^[\\d-]+") %>% ymd()) %>%
+  mutate(week = floor_date(date, unit = "weeks")) %>%
+  group_by(station, week) %>%
+  summarise(value = mean(value)) %>%
+  mutate(week_num = week(week), month = month(week), year = year(week)) %>%
+  group_by(station, year) %>%
+  mutate(obs = row_number()) %>%
+  inner_join(id_lookup %>% select(id, name), by = c("station" = "id"))
+```
+
+```{r}
+coord_radar <- function (theta = "x", start = 0, direction = 1) 
+{
+    theta <- match.arg(theta, c("x", "y"))
+    r <- if (theta == "x") 
+        "y"
+    else "x"
+    ggproto("CoordRadar", CoordPolar, theta = theta, r = r, start = start, 
+        direction = sign(direction),
+        is_linear = function(coord) TRUE)
+}
+```
+
+
+```{r}
+lerp <- function(x) (x - min(x)) / (max(x) - min(x))
+
+date_dummies <- tibble(rep = 1:6, week = min(snow_sum$week), week2 = max(snow_sum$week))
+
+to_snowflake <- map_dfr(1:6, ~filter(snow_sum, value > 0), .id = "rep") %>%
+  mutate(rep = as.numeric(rep)) %>%
+  mutate(scaled = lerp(value))
+
+to_snowflake %>%
+  # mutate(ymin = rep - (scaled / 2), ymax = rep + (scaled / 2)) %>%
+  ggplot(aes(x = week, y = rep)) +
+    geom_segment(aes(xend = week2, yend = rep), data = date_dummies, color = "skyblue2", alpha = 0.5, size = 0.5) +
+    geom_tile(aes(width = 1e-1, height = scaled), color = "skyblue2", alpha = 0.2) +
+    theme_void() +
+    facet_wrap(~ name) +
+    coord_polar(theta = "y") +
+    # coord_radar(theta = "y") +
+    NULL
+```
+
+
+
+
+```{r}
+snow_sum %>%
+  ungroup() %>%
+  filter(value > 0) %>%
+  mutate(date = week - min(week)) %>%
+  select(name, date, value) %>%
+  mutate(date = as.numeric(date), value = round(value), name = str_to_title(name)) %>%
+  arrange(name, date) %>%
+  write_csv("snowfall.csv")
+```
+
+```{r}
+library(GGally)
+
+snow_to_glyph <- snow_sum %>%
+  ungroup() %>%
+  select(name, week, value) %>%
+  inner_join(ct_stations %>% select(name, latitude, longitude) %>% distinct(name, .keep_all = T) , by = "name") %>%
+  mutate(date = week - min(week)) %>%
+  mutate(date = as.numeric(date))
+```
+
+```{r}
+snow_glyph <- snow_to_glyph %>%
+  mutate(date_num = yday(week)) %>%
+  mutate(latitude_nudge = latitude + 0.1) %>%
+  glyphs(x_major = "longitude", x_minor = "date_num", y_major = "latitude_nudge", y_minor = "value", width = 0.3, height = 0.25, polar = F)
+
+snow_glyph %>%
+  filter(str_detect(name, "(MT CARMEL|BRIDGEPORT|HARTFORD|GROTON|STORRS|DANBURY)")) %>%
+ggplot(aes(x = gx, y = gy, group = gid)) +
+  # geom_sf(data = cwi::town_sf, inherit.aes = F, fill = NA, color = "gray95") +
+  geom_sf(data = cwi::town_sf %>% st_union(), inherit.aes = F, fill = NA, color = "gray70", size = 0.8) +
+  geom_line(color = "skyblue2", alpha = 0.5) +
+  theme_void() +
+  coord_sf(ndiscr = F)
+```
+
+```{r}
+snow_sum %>%
+  filter(name == "BURLINGTON") %>%
+  mutate(date_num = yday(week)) %>%
+  ggplot(aes(x = week_num, y = value)) +
+    geom_col(alpha = 0.4, fill = "skyblue", color = NA, width = 1) +
+    coord_polar(theta = "y") +
+    theme_void()
+```
+
+```{r}
+snow_sum %>%
+  ggplot(aes(x = week_num, y = value, group = name)) +
+    geom_col(width = 1, fill = "skyblue", alpha = 0.4, color = NA, position = "identity") +
+    theme_void() +
+    facet_wrap(~name)
+```
+
+Icicles?
+
+```{r}
+snow_sum %>%
+  filter(str_detect(name, "BRIDGEPORT")) %>%
+  ggplot(aes(x = week_num, y = value, group = year)) +
+    geom_area(fill = "skyblue", alpha = 0.4, color = NA, position = "identity") +
+    scale_y_reverse() +
+    theme_void()
+```
+
+snow banks
+
+```{r}
+snow_sum %>%
+  filter(value < 100) %>%
+  filter(!str_detect(name, "(WESTBROOK|BURLINGTON|STAMFORD|DANBURY|CARMEL)")) %>%
+  group_by(name, year) %>%
+  nest() %>%
+  mutate(smooth = map(data, ~loess(.$value ~ .$week_num, data = ., span = 0.6) %>% predict(.$week_num))) %>%
+  unnest() %>%
+  mutate(smooth = ifelse(smooth < 0, 0, smooth)) %>%
+  ggplot(aes(x = week_num, y = smooth, group = year)) +
+    geom_area(fill = "skyblue2", color = NA, alpha = 0.4, position = "identity") +
+    facet_wrap(~ name) +
+    theme_void()
+```
+
