@@ -1,0 +1,769 @@
+[
+  {
+    "city": "Bridgeport",
+    "data": [
+      {
+        "date": 7,
+        "value": 27
+      },
+      {
+        "date": 28,
+        "value": 1
+      },
+      {
+        "date": 42,
+        "value": 7
+      },
+      {
+        "date": 301,
+        "value": 30
+      },
+      {
+        "date": 322,
+        "value": 0
+      },
+      {
+        "date": 350,
+        "value": 28
+      },
+      {
+        "date": 371,
+        "value": 13
+      },
+      {
+        "date": 378,
+        "value": 2
+      },
+      {
+        "date": 385,
+        "value": 3
+      },
+      {
+        "date": 392,
+        "value": 50
+      },
+      {
+        "date": 399,
+        "value": 0
+      },
+      {
+        "date": 420,
+        "value": 36
+      },
+      {
+        "date": 434,
+        "value": 11
+      },
+      {
+        "date": 672,
+        "value": 0
+      },
+      {
+        "date": 700,
+        "value": 26
+      },
+      {
+        "date": 707,
+        "value": 13
+      },
+      {
+        "date": 714,
+        "value": 0
+      },
+      {
+        "date": 721,
+        "value": 17
+      },
+      {
+        "date": 728,
+        "value": 2
+      },
+      {
+        "date": 742,
+        "value": 28
+      },
+      {
+        "date": 749,
+        "value": 2
+      },
+      {
+        "date": 756,
+        "value": 52
+      },
+      {
+        "date": 763,
+        "value": 55
+      },
+      {
+        "date": 770,
+        "value": 10
+      },
+      {
+        "date": 791,
+        "value": 0
+      },
+      {
+        "date": 812,
+        "value": 3
+      },
+      {
+        "date": 826,
+        "value": 0
+      },
+      {
+        "date": 1050,
+        "value": 1
+      },
+      {
+        "date": 1064,
+        "value": 3
+      },
+      {
+        "date": 1085,
+        "value": 4
+      },
+      {
+        "date": 1092,
+        "value": 11
+      },
+      {
+        "date": 1106,
+        "value": 20
+      },
+      {
+        "date": 1113,
+        "value": 33
+      },
+      {
+        "date": 1120,
+        "value": 42
+      },
+      {
+        "date": 1127,
+        "value": 15
+      },
+      {
+        "date": 1134,
+        "value": 20
+      },
+      {
+        "date": 1141,
+        "value": 1
+      },
+      {
+        "date": 1148,
+        "value": 41
+      },
+      {
+        "date": 1162,
+        "value": 21
+      },
+      {
+        "date": 1169,
+        "value": 4
+      },
+      {
+        "date": 1176,
+        "value": 1
+      },
+      {
+        "date": 1449,
+        "value": 3
+      },
+      {
+        "date": 1463,
+        "value": 0
+      },
+      {
+        "date": 1470,
+        "value": 37
+      },
+      {
+        "date": 1484,
+        "value": 29
+      },
+      {
+        "date": 1491,
+        "value": 15
+      },
+      {
+        "date": 1498,
+        "value": 6
+      },
+      {
+        "date": 1512,
+        "value": 1
+      },
+      {
+        "date": 1533,
+        "value": 7
+      },
+      {
+        "date": 1547,
+        "value": 0
+      },
+      {
+        "date": 1799,
+        "value": 22
+      },
+      {
+        "date": 1820,
+        "value": 24
+      },
+      {
+        "date": 1827,
+        "value": 7
+      },
+      {
+        "date": 1848,
+        "value": 9
+      },
+      {
+        "date": 1855,
+        "value": 37
+      },
+      {
+        "date": 1862,
+        "value": 9
+      },
+      {
+        "date": 1883,
+        "value": 15
+      },
+      {
+        "date": 1890,
+        "value": 26
+      },
+      {
+        "date": 2156,
+        "value": 16
+      },
+      {
+        "date": 2163,
+        "value": 7
+      },
+      {
+        "date": 2177,
+        "value": 8
+      }
+    ]
+  },
+  {
+    "city": "Danbury",
+    "data": [
+      {
+        "date": 28,
+        "value": 1
+      },
+      {
+        "date": 42,
+        "value": 15
+      },
+      {
+        "date": 49,
+        "value": 15
+      },
+      {
+        "date": 301,
+        "value": 33
+      },
+      {
+        "date": 322,
+        "value": 8
+      },
+      {
+        "date": 385,
+        "value": 4
+      },
+      {
+        "date": 392,
+        "value": 71
+      },
+      {
+        "date": 399,
+        "value": 11
+      },
+      {
+        "date": 413,
+        "value": 1
+      },
+      {
+        "date": 700,
+        "value": 60
+      },
+      {
+        "date": 707,
+        "value": 57
+      },
+      {
+        "date": 714,
+        "value": 6
+      },
+      {
+        "date": 721,
+        "value": 3
+      },
+      {
+        "date": 791,
+        "value": 2
+      },
+      {
+        "date": 812,
+        "value": 8
+      },
+      {
+        "date": 826,
+        "value": 22
+      },
+      {
+        "date": 1064,
+        "value": 4
+      },
+      {
+        "date": 1078,
+        "value": 2
+      },
+      {
+        "date": 1085,
+        "value": 7
+      },
+      {
+        "date": 1092,
+        "value": 16
+      },
+      {
+        "date": 1099,
+        "value": 2
+      },
+      {
+        "date": 1106,
+        "value": 60
+      },
+      {
+        "date": 1113,
+        "value": 35
+      },
+      {
+        "date": 1120,
+        "value": 52
+      },
+      {
+        "date": 1127,
+        "value": 43
+      },
+      {
+        "date": 1134,
+        "value": 38
+      },
+      {
+        "date": 1141,
+        "value": 19
+      },
+      {
+        "date": 1148,
+        "value": 75
+      },
+      {
+        "date": 1162,
+        "value": 53
+      },
+      {
+        "date": 1169,
+        "value": 6
+      },
+      {
+        "date": 1176,
+        "value": 8
+      },
+      {
+        "date": 1463,
+        "value": 4
+      },
+      {
+        "date": 1470,
+        "value": 26
+      },
+      {
+        "date": 1477,
+        "value": 0
+      },
+      {
+        "date": 1484,
+        "value": 17
+      },
+      {
+        "date": 1491,
+        "value": 22
+      },
+      {
+        "date": 1498,
+        "value": 7
+      },
+      {
+        "date": 1505,
+        "value": 2
+      },
+      {
+        "date": 1512,
+        "value": 2
+      },
+      {
+        "date": 1533,
+        "value": 12
+      },
+      {
+        "date": 1547,
+        "value": 9
+      },
+      {
+        "date": 1750,
+        "value": 1
+      },
+      {
+        "date": 1778,
+        "value": 1
+      },
+      {
+        "date": 1792,
+        "value": 7
+      },
+      {
+        "date": 1799,
+        "value": 25
+      },
+      {
+        "date": 1813,
+        "value": 1
+      },
+      {
+        "date": 1820,
+        "value": 16
+      },
+      {
+        "date": 1827,
+        "value": 3
+      },
+      {
+        "date": 1841,
+        "value": 6
+      },
+      {
+        "date": 1848,
+        "value": 8
+      },
+      {
+        "date": 1855,
+        "value": 48
+      },
+      {
+        "date": 1862,
+        "value": 15
+      },
+      {
+        "date": 2156,
+        "value": 19
+      },
+      {
+        "date": 2163,
+        "value": 8
+      },
+      {
+        "date": 2170,
+        "value": 0
+      },
+      {
+        "date": 2177,
+        "value": 13
+      }
+    ]
+  },
+  {
+    "city": "Hartford",
+    "data": [
+      {
+        "date": 7,
+        "value": 25
+      },
+      {
+        "date": 42,
+        "value": 5
+      },
+      {
+        "date": 49,
+        "value": 21
+      },
+      {
+        "date": 77,
+        "value": 1
+      },
+      {
+        "date": 301,
+        "value": 9
+      },
+      {
+        "date": 322,
+        "value": 2
+      },
+      {
+        "date": 350,
+        "value": 45
+      },
+      {
+        "date": 357,
+        "value": 1
+      },
+      {
+        "date": 364,
+        "value": 1
+      },
+      {
+        "date": 371,
+        "value": 12
+      },
+      {
+        "date": 378,
+        "value": 2
+      },
+      {
+        "date": 385,
+        "value": 6
+      },
+      {
+        "date": 392,
+        "value": 82
+      },
+      {
+        "date": 399,
+        "value": 9
+      },
+      {
+        "date": 413,
+        "value": 1
+      },
+      {
+        "date": 420,
+        "value": 16
+      },
+      {
+        "date": 427,
+        "value": 0
+      },
+      {
+        "date": 434,
+        "value": 19
+      },
+      {
+        "date": 693,
+        "value": 1
+      },
+      {
+        "date": 700,
+        "value": 21
+      },
+      {
+        "date": 707,
+        "value": 23
+      },
+      {
+        "date": 714,
+        "value": 1
+      },
+      {
+        "date": 721,
+        "value": 26
+      },
+      {
+        "date": 728,
+        "value": 5
+      },
+      {
+        "date": 735,
+        "value": 1
+      },
+      {
+        "date": 742,
+        "value": 6
+      },
+      {
+        "date": 756,
+        "value": 46
+      },
+      {
+        "date": 763,
+        "value": 38
+      },
+      {
+        "date": 770,
+        "value": 14
+      },
+      {
+        "date": 777,
+        "value": 0
+      },
+      {
+        "date": 812,
+        "value": 3
+      },
+      {
+        "date": 826,
+        "value": 1
+      },
+      {
+        "date": 1050,
+        "value": 19
+      },
+      {
+        "date": 1064,
+        "value": 0
+      },
+      {
+        "date": 1078,
+        "value": 2
+      },
+      {
+        "date": 1085,
+        "value": 7
+      },
+      {
+        "date": 1092,
+        "value": 8
+      },
+      {
+        "date": 1099,
+        "value": 1
+      },
+      {
+        "date": 1106,
+        "value": 18
+      },
+      {
+        "date": 1113,
+        "value": 29
+      },
+      {
+        "date": 1120,
+        "value": 43
+      },
+      {
+        "date": 1127,
+        "value": 32
+      },
+      {
+        "date": 1134,
+        "value": 34
+      },
+      {
+        "date": 1141,
+        "value": 6
+      },
+      {
+        "date": 1148,
+        "value": 16
+      },
+      {
+        "date": 1162,
+        "value": 13
+      },
+      {
+        "date": 1169,
+        "value": 3
+      },
+      {
+        "date": 1449,
+        "value": 4
+      },
+      {
+        "date": 1463,
+        "value": 1
+      },
+      {
+        "date": 1470,
+        "value": 6
+      },
+      {
+        "date": 1484,
+        "value": 24
+      },
+      {
+        "date": 1491,
+        "value": 21
+      },
+      {
+        "date": 1498,
+        "value": 4
+      },
+      {
+        "date": 1505,
+        "value": 2
+      },
+      {
+        "date": 1512,
+        "value": 1
+      },
+      {
+        "date": 1533,
+        "value": 10
+      },
+      {
+        "date": 1547,
+        "value": 25
+      },
+      {
+        "date": 1750,
+        "value": 5
+      },
+      {
+        "date": 1792,
+        "value": 2
+      },
+      {
+        "date": 1799,
+        "value": 34
+      },
+      {
+        "date": 1813,
+        "value": 1
+      },
+      {
+        "date": 1820,
+        "value": 15
+      },
+      {
+        "date": 1841,
+        "value": 7
+      },
+      {
+        "date": 1848,
+        "value": 11
+      },
+      {
+        "date": 1855,
+        "value": 61
+      },
+      {
+        "date": 1862,
+        "value": 19
+      },
+      {
+        "date": 1883,
+        "value": 8
+      },
+      {
+        "date": 1904,
+        "value": 5
+      },
+      {
+        "date": 2156,
+        "value": 20
+      },
+      {
+        "date": 2163,
+        "value": 3
+      },
+      {
+        "date": 2177,
+        "value": 13
+      }
+    ]
+  }
+]
